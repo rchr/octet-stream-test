@@ -1,0 +1,57 @@
+#%RAML 1.0
+title: Test file upload
+version: v1
+baseUri: http://localhost/mod-test-upload
+
+documentation:
+  - title: mod-test-upload API
+    content: mod-test-upload
+
+traits:
+  orderable: !include ./raml-util/traits/orderable.raml
+  pageable: !include ./raml-util/traits/pageable.raml
+  searchable: !include ./raml-util/traits/searchable.raml
+  language: !include ./raml-util/traits/language.raml
+
+resourceTypes:
+  collection-item: !include ./raml-util/rtypes/item-collection.raml
+
+/test-upload:
+  displayName: test upload
+  /{id}:
+    get:
+      description: Get file by id
+      responses:
+        200:
+          body:
+            application/octet-stream:
+        500:
+          description: Server Error
+          body:
+            text/plain:
+    post:
+      description: Upload/update a file
+      body:
+        application/octet-stream:
+      responses:
+        200:
+        404:
+          body:
+            text/plain:
+        500:
+          body:
+            text/plain:
+    put:
+      description: Upload/update a file
+      body:
+        application/octet-stream:
+      responses:
+        204:
+        404:
+          body:
+            text/plain:
+        500:
+          body:
+            text/plain:
+    delete:
+      description: Delete a file identified by id
